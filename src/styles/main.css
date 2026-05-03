@@ -39,7 +39,7 @@ body {
 
 /* Контейнеры страниц с фоном */
 .home-container-page {
-    background-image: url('/public/images/back.png');
+    background-image: url('/public/cinema/images/back.png');
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -48,7 +48,7 @@ body {
 }
 
 .booking-container-page {
-    background-image: url('/public/images/back.png');
+    background-image: url('/public/cinema/images/back.png');
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -57,7 +57,7 @@ body {
 }
 
 .ticket-container-page {
-    background-image: url('/public/images/back.png');
+    background-image: url('/public/cinema/images/back.png');
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -66,7 +66,7 @@ body {
 }
 
 .admin-login-container-page {
-    background-image: url('/public/images/admin_back.png');
+    background-image: url('/public/cinema/images/admin_back.png');
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -75,7 +75,7 @@ body {
 }
 
 .admin-container-page {
-    background-image: url('/public/images/admin_back.png');
+    background-image: url('/public/cinema/images/admin_back.png');
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
