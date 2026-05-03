@@ -3,7 +3,7 @@
 Дипломный проект по профессии «Frontend-разработчик»
 
 ## Ссылка на проект
-
+https://github.com/AleksaOsk/cinema/actions/runs/25281478376
 
 ## Стек технологий
 
