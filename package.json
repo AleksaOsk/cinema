@@ -2,6 +2,7 @@
   "name": "cinema",
   "version": "1.0.0",
   "type": "module",
+  "homepage": "https://aleksaosk.github.io/cinema",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
