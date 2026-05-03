@@ -23,7 +23,7 @@ function FilmsManager({ films, onDragStart, onDeleteFilm, onAddFilm }) {
                             <div className="admin-film-duration">{film.film_duration} мин</div>
                         </div>
                         <button className="admin-film-delete" onClick={() => onDeleteFilm(film.id)}>
-                            <img src="/images/trash.svg" alt="Удалить"/>
+                            <img src=public/images/trash.svg" alt="Удалить"/>
                         </button>
                     </div>
                 ))}

@@ -13,7 +13,7 @@ function AddFilmModal({
                 <div className="admin-modal-header">
                     <h3>ДОБАВЛЕНИЕ ФИЛЬМА</h3>
                     <button className="admin-modal-close" onClick={onClose}>
-                        <img src="/images/close.svg" alt="Закрыть"/>
+                        <img src=public/images/close.svg" alt="Закрыть"/>
                     </button>
                 </div>
                 <div className="admin-modal-body">
@@ -60,7 +60,7 @@ function AddFilmModal({
                             <div className="admin-poster-info-trash">
                                 <span className="admin-poster-name">{posterFile.name}</span>
                                 <button className="admin-poster-delete" onClick={onPosterDelete}>
-                                    <img src="/images/trash.svg" alt="Удалить"/>
+                                    <img src=public/images/trash.svg" alt="Удалить"/>
                                 </button>
                             </div>
                         </div>
