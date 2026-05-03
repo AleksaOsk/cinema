@@ -8,7 +8,7 @@ import AdminPage from './pages/AdminPage';
 
 function App() {
     return (
-        <BrowserRouter basename="/cinema">
+        <BrowserRouter>
             <Routes>
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/admin-login" element={<AdminLoginPage/>}/>

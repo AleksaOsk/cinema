@@ -5,7 +5,7 @@ function AddHallModal({ hallName, onHallNameChange, onClose, onAdd }) {
                 <div className="admin-modal-header">
                     <h3>ДОБАВЛЕНИЕ ЗАЛА</h3>
                     <button className="admin-modal-close" onClick={onClose}>
-                        <img src="/cinema/images/close.svg" alt="Закрыть"/>
+                        <img src="/public/images/close.svg" alt="Закрыть"/>
                     </button>
                 </div>
                 <div className="admin-modal-body">
