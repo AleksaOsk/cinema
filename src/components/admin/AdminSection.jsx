@@ -21,8 +21,8 @@ function AdminSection({
                 <h2 className="admin-section-title">{title}</h2>
                 <button className="admin-section-arrow">
                     {isOpen
-                        ? <img src="/images/arrow.svg" alt="Закрыть"/>
-                        : <img src="/images/arrow.svg" alt="Открыть" style={{transform: 'rotate(270deg)'}}/>
+                        ? <img src="images/arrow.svg" alt="Закрыть"/>
+                        : <img src="images/arrow.svg" alt="Открыть" style={{transform: 'rotate(270deg)'}}/>
                     }
                 </button>
             </div>
