@@ -1,0 +1,68 @@
+/* АДМИН ПАНЕЛЬ - КОНФИГУРАЦИЯ ЦЕН */
+.admin-price-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.admin-price-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-price-field label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #848484;
+    margin-bottom: 5px;
+}
+
+.admin-price-field input {
+    width: 100px;
+    height: 36px;
+    padding: 0 10px;
+    background: white;
+    border: 1px solid #ccc;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #757575;
+}
+
+.admin-price-field input:focus {
+    color: black;
+    outline: none;
+    border-color: #16A6AF;
+}
+
+.admin-price-label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #848484;
+    align-self: center;
+    margin-top: 18px;
+}
+
+.admin-price-desc {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #848484;
+    white-space: nowrap;
+    align-self: center;
+    margin-top: 18px;
+}
+
+.admin-price-row .admin-legend-seat {
+    align-self: center;
+    margin-top: 18px;
+    flex-shrink: 0;
+}

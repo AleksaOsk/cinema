@@ -1,0 +1,123 @@
+/* ОСНОВНОЙ КОНТЕНТ ГЛАВНОЙ */
+.main {
+    padding: 0 0 var(--spacing-xl) 0;
+}
+
+.movies-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.movie-card {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.movie-poster-section {
+    float: left;
+    margin-right: 15px;
+    position: relative;
+}
+
+.movie-poster {
+    width: 125px;
+    height: 175px;
+    object-fit: cover;
+    border-radius: 0;
+    display: block;
+}
+
+.movie-decor {
+    position: absolute;
+    right: -7px;
+    top: 0;
+    width: 6px;
+    height: 14px;
+    background: #393939;
+    border-radius: 0;
+}
+
+.movie-info-section {
+    margin-left: 140px;
+    margin-bottom: 20px;
+}
+
+.movie-title {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 18px;
+    color: #000;
+    margin-bottom: 6px;
+}
+
+.movie-description {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000;
+    margin-bottom: 14px;
+}
+
+.movie-details {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000;
+}
+
+.movie-sessions-section {
+    clear: both;
+}
+
+.hall-block {
+    margin-bottom: 20px;
+}
+
+.hall-block:last-child {
+    margin-bottom: 0;
+}
+
+.hall-title {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 18px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.sessions-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.session-time {
+    width: 53px;
+    height: 33px;
+    background: white;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.session-time:hover {
+    opacity: 0.8;
+    background: #f5f5f5;
+}
+
+.session-time span {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 17px;
+    color: #000;
+}

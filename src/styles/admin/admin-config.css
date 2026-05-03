@@ -1,0 +1,184 @@
+/* АДМИН ПАНЕЛЬ - КОНФИГУРАЦИЯ ЗАЛОВ */
+.admin-config-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.admin-config-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.admin-config-field label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #848484;
+}
+
+.admin-config-field input {
+    width: 100px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.admin-config-x {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: #848484;
+    padding-bottom: 8px;
+}
+
+/* Легенда */
+.admin-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.admin-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-legend-seat {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid #393939;
+}
+
+.admin-legend-seat.standart {
+    background: #C4C4C4;
+}
+
+.admin-legend-seat.vip {
+    background: repeating-linear-gradient(135deg, #B0D6D8, #B0D6D8 2px, #0A828A 2px, #0A828A 3px);
+    border-color: #0A828A;
+}
+
+.admin-legend-seat.disabled {
+    background: transparent;
+    border-color: #C4C4C4;
+}
+
+.admin-legend-item span {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #848484;
+}
+
+.admin-section-hint {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #848484;
+    margin-bottom: 20px;
+}
+
+/* Схема зала */
+.admin-hall-scheme {
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 25px;
+    overflow-x: auto;
+}
+
+.admin-screen {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-screen span {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 19px;
+    color: black;
+}
+
+.admin-seats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.admin-seats-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.admin-seat {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid #393939;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.admin-seat.standart {
+    background: #C4C4C4;
+}
+
+.admin-seat.vip {
+    background: repeating-linear-gradient(135deg, #B0D6D8, #B0D6D8 2px, #0A828A 2px, #0A828A 3px);
+    border-color: #0A828A;
+}
+
+.admin-seat.disabled {
+    background: transparent;
+    border-color: #C4C4C4;
+}
+
+.admin-seat:hover {
+    transform: scale(1.05);
+}
+
+/* Кнопки */
+.admin-config-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.admin-cancel-btn {
+    padding: 10px 25px;
+    background: white;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #63536C;
+    cursor: pointer;
+}
+
+.admin-save-btn {
+    padding: 10px 25px;
+    background: #16A6AF;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+}

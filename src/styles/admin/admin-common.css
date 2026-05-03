@@ -1,0 +1,128 @@
+/* АДМИН ПАНЕЛЬ - ОБЩИЕ СТИЛИ */
+.admin-container-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.admin-container-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+.admin-container-page .header {
+    position: relative;
+    z-index: 2;
+}
+
+.admin-content {
+    max-width: 962px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.admin-section {
+    position: relative;
+}
+
+.admin-section-header {
+    background: #63536C;
+    height: 95px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.admin-section-icon {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 44px;
+}
+
+.admin-circle {
+    width: 44px;
+    height: 44px;
+    background: white;
+    border-radius: 50%;
+    border: 4px solid #BC95D6;
+    position: relative;
+    z-index: 5;
+}
+
+.admin-header-line-up {
+    position: absolute;
+    top: -32px;
+    left: 20px;
+    width: 2px;
+    height: 32px;
+    background: #BC95D6;
+    z-index: 4;
+}
+
+.admin-header-line-down {
+    position: absolute;
+    bottom: -32px;
+    left: 20px;
+    width: 2px;
+    height: 32px;
+    background: #BC95D6;
+    z-index: 4;
+}
+
+.admin-body-line {
+    position: absolute;
+    left: 60px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #BC95D6;
+    z-index: 4;
+}
+
+.admin-section-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 25px;
+    color: white;
+    flex: 1;
+}
+
+.admin-section-arrow {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.admin-section-body {
+    background: rgba(234, 233, 235, 0.95);
+    position: relative;
+    z-index: 1;
+    padding: 0;
+}
+
+.admin-section-content {
+    padding: 35px 30px 35px 100px;
+}
+
+.admin-section-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: black;
+    margin-bottom: 10px;
+}

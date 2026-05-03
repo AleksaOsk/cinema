@@ -1,0 +1,160 @@
+/* АДАПТИВ */
+@media (max-width: 768px) {
+    .nav-arrow {
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .nav-days .container,
+    .main .container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .header .container {
+        padding: 0 14px;
+    }
+
+    .movie-card {
+        border-radius: 0;
+    }
+
+    .booking-container {
+        margin: 0;
+        border-radius: 0;
+        width: 100%;
+    }
+
+    .admin-films-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .admin-modal-body {
+        padding: 34px 10px 40px 10px;
+    }
+
+    .admin-film-card {
+        max-width: 260px;
+    }
+
+    .header .container {
+        padding: 0;
+    }
+
+    .admin-login-field {
+        margin-bottom: 8px;
+    }
+
+    .admin-login-label {
+        margin-bottom: 0;
+    }
+
+    .booking-container-page header,
+    .ticket-container-page header,
+    .home-container-page header{
+        padding: 14px;
+    }
+
+    .booking-film-title {
+        max-width: 420px;
+    }
+
+    .booking-tap-hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 65px;
+        flex-shrink: 0;
+
+    }
+
+    .booking-tap-hint img {
+        width: 24px;
+        height: 32px;
+    }
+
+    .booking-tap-hint span {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 16px;
+        color: black;
+        padding: 0 15px;
+        text-align: center;
+    }
+
+    .admin-login-container-page .header {
+        padding: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-arrow {
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .admin-section-header {
+        height: 65px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .admin-section-icon {
+        width: 22px;
+    }
+
+    .admin-circle {
+        width: 22px;
+        height: 22px;
+    }
+
+    .admin-header-line-down {
+        width: 0;
+    }
+
+    .admin-header-line-up {
+        width: 0;
+    }
+
+    .admin-body-line {
+        width: 0;
+    }
+
+    .admin-section-content {
+        padding-left: 30px;
+    }
+
+    .admin-section-hint {
+        margin-bottom: 0;
+    }
+
+    .admin-timeline-hall {
+        padding-right: 0;
+        margin-bottom: 12px;
+    }
+
+    .admin-films-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-modal-buttons {
+        margin-top: 25px;
+        display: grid;
+    }
+
+    .admin-modal-body {
+        padding-top: 16px;
+    }
+
+    .booking-film-title {
+        max-width: 260px;
+    }
+
+    .admin-btn .admin-create-btn {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
