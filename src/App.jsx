@@ -10,6 +10,7 @@ function App() {
     return (
         <HashRouter>
             <Routes>
+                <Route path="/" element={<Navigate to="/" replace />} />
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/admin-login" element={<AdminLoginPage/>}/>
                 <Route path="/admin" element={<AdminPage/>}/>
