@@ -1,4 +1,4 @@
-import {HashRouter, Route, Routes, Navigate} from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import BookingPage from './pages/BookingPage';
@@ -10,7 +10,6 @@ function App() {
     return (
         <HashRouter>
             <Routes>
-                <Route path="/" element={<Navigate to="/" replace />} />
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/admin-login" element={<AdminLoginPage/>}/>
                 <Route path="/admin" element={<AdminPage/>}/>
