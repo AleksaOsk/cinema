@@ -166,7 +166,7 @@ function BookingPage() {
                             <div className="booking-hall-name">{hall.hall_name}</div>
                         </div>
                         <div className="booking-tap-hint">
-                            <img src="/images/tap.svg" alt="Тап" />
+                            <img src="/cinema/images/tap.svg" alt="Тап" />
                             <span>Тапните дважды, чтобы увеличить</span>
                         </div>
                     </div>

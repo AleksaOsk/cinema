@@ -36,7 +36,7 @@ function SeancesTimeline({
                                             onTrashDrop();
                                         }}
                                     >
-                                        <img src="/public/images/trash.svg" alt="Удалить"/>
+                                        <img src="/cinema/images/trash.svg" alt="Удалить"/>
                                     </div>
                                 )}
                             </div>

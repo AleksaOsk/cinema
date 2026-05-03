@@ -10,7 +10,7 @@ function HallsManager({ halls, onDeleteHall, onCreateHall }) {
                             className="admin-delete-btn"
                             onClick={() => onDeleteHall(hall.id)}
                         >
-                            <img src="/public/images/trash.svg" alt="Удалить"/>
+                            <img src="/cinema/images/trash.svg" alt="Удалить"/>
                         </button>
                     </div>
                 ))}
