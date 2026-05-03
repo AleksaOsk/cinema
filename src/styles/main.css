@@ -48,7 +48,7 @@ body {
 }
 
 .booking-container-page {
-    background-image: url('/public/images/back.svg');
+    background-image: url('/images/back.svg');
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -57,7 +57,7 @@ body {
 }
 
 .ticket-container-page {
-    background-image: url('/public/images/back.svg');
+    background-image: url('/images/back.svg');
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -66,7 +66,7 @@ body {
 }
 
 .admin-login-container-page {
-    background-image: url('/public/images/admin_back.svg');
+    background-image: url('/images/admin_back.svg');
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -75,7 +75,7 @@ body {
 }
 
 .admin-container-page {
-    background-image: url('/public/images/admin_back.svg');
+    background-image: url('/images/admin_back.svg');
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
