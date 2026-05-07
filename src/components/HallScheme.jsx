@@ -6,8 +6,11 @@ function HallScheme({hallConfig, selectedSeats, onSeatSelect}) {
     return (
         <div className="hall-scheme">
             <div className="hall-screen">
-                <div className="screen-curved"></div>
-                <div className="screen-label">ЭКРАН</div>
+                <img
+                    src="./images/screen.svg"
+                    alt="Экран"
+                    className="screen-image"
+                />
             </div>
 
             <div className="hall-rows">

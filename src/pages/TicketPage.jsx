@@ -10,7 +10,6 @@ function TicketPage() {
     useEffect(() => {
         if (location.state && location.state.tickets) {
             setTickets(location.state.tickets);
-            console.log('Получены билеты из state:', location.state.tickets);
         } else {
             console.error('Нет данных о билетах');
             navigate('/');
@@ -80,7 +79,9 @@ function TicketPage() {
 
                         <div className="ticket-message">
                             После оплаты билет будет доступен в этом окне, а также придёт вам на почту.
-                            Покажите QR-код нашему контроллёру у входа в зал.<br/>
+                            Покажите QR-код нашему контроллёру у входа в зал.
+                        </div>
+                        <div className="ticket-message" style={{marginTop: '10px'}}>
                             Приятного просмотра!
                         </div>
                     </div>

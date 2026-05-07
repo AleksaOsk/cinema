@@ -1,6 +1,6 @@
 /* ОСНОВНОЙ КОНТЕНТ ГЛАВНОЙ */
 .main {
-    padding: 0 0 var(--spacing-xl) 0;
+    padding: 0;
 }
 
 .movies-list {
@@ -52,7 +52,7 @@
     font-size: 16px;
     line-height: 18px;
     color: #000;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
 }
 
 .movie-description {
@@ -60,7 +60,7 @@
     font-size: 14px;
     line-height: 16px;
     color: #000;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 
 .movie-details {

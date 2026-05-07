@@ -1,4 +1,11 @@
-function PriceManager({ halls, selectedHallId, onSelectHall, prices, onPriceChange, onSave, onCancel }) {
+function PriceManager({halls, selectedHallId, onSelectHall, prices, onPriceChange, onSave, onCancel}) {
+    const handlePriceInput = (type, value) => {
+        let numValue = Number(value);
+        if (isNaN(numValue)) numValue = 1;
+        if (numValue <= 0) numValue = 1;
+        onPriceChange(type, numValue);
+    };
+
     return (
         <>
             <p className="admin-section-text">Выберите зал для конфигурации:</p>
@@ -24,8 +31,8 @@ function PriceManager({ halls, selectedHallId, onSelectHall, prices, onPriceChan
                             <input
                                 type="number"
                                 value={prices.standart}
-                                onChange={(e) => onPriceChange('standart', parseInt(e.target.value) || 0)}
-                                min="0"
+                                onChange={(e) => handlePriceInput('standart', e.target.value)}
+                                min="1"
                                 placeholder="0"
                             />
                         </div>
@@ -40,8 +47,8 @@ function PriceManager({ halls, selectedHallId, onSelectHall, prices, onPriceChan
                             <input
                                 type="number"
                                 value={prices.vip}
-                                onChange={(e) => onPriceChange('vip', parseInt(e.target.value) || 0)}
-                                min="0"
+                                onChange={(e) => handlePriceInput('vip', e.target.value)}
+                                min="1"
                                 placeholder="0"
                             />
                         </div>

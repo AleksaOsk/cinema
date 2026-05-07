@@ -1,6 +1,6 @@
 name: CI Pipeline
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 permissions:
   contents: write
@@ -47,7 +47,7 @@ jobs:
         run: npm run lint
 
   deploy:
-    needs: [build, lint]
+    needs: [ build, lint ]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:

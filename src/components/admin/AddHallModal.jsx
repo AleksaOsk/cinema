@@ -1,4 +1,4 @@
-function AddHallModal({ hallName, onHallNameChange, onClose, onAdd }) {
+function AddHallModal({hallName, onHallNameChange, onClose, onAdd}) {
     return (
         <div className="admin-modal-overlay">
             <div className="admin-modal">

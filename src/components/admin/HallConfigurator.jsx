@@ -1,3 +1,5 @@
+import {useScaledSeats} from "../../hooks/useScaledSeats.js";
+
 function HallConfigurator({
                               halls,
                               selectedHallId,
@@ -12,6 +14,14 @@ function HallConfigurator({
                               onSave,
                               onCancel
                           }) {
+    const {containerRef, seatSize} = useScaledSeats([hallConfig, rows, places, selectedHall]);
+
+    const getGap = () => {
+        if (places > 30) return 2;
+        if (places > 20) return 4;
+        return 8;
+    };
+
     return (
         <>
             <p className="admin-section-text">Выберите зал для конфигурации:</p>
@@ -29,7 +39,8 @@ function HallConfigurator({
 
             {selectedHall && (
                 <>
-                    <p className="admin-section-text">Укажите количество рядов и максимальное количество кресел в ряду:</p>
+                    <p className="admin-section-text">Укажите количество рядов и максимальное количество кресел в
+                        ряду:</p>
                     <div className="admin-config-row">
                         <div className="admin-config-field">
                             <label>Рядов, шт</label>
@@ -38,7 +49,7 @@ function HallConfigurator({
                                 value={rows}
                                 onChange={(e) => onRowsChange(parseInt(e.target.value) || 1)}
                                 min="1"
-                                max="20"
+                                max="100"
                             />
                         </div>
                         <span className="admin-config-x">x</span>
@@ -49,7 +60,7 @@ function HallConfigurator({
                                 value={places}
                                 onChange={(e) => onPlacesChange(parseInt(e.target.value) || 1)}
                                 min="1"
-                                max="20"
+                                max="100"
                             />
                         </div>
                     </div>
@@ -75,17 +86,29 @@ function HallConfigurator({
                             : 'Чтобы изменить вид кресла, нажмите по нему левой кнопкой мыши'}
                     </p>
 
-                    <div className="admin-hall-scheme">
+                    <div className="admin-hall-scheme" ref={containerRef}>
                         <div className="admin-screen">
                             <span>ЭКРАН</span>
                         </div>
                         <div className="admin-seats-grid">
                             {hallConfig.map((row, rowIndex) => (
-                                <div key={rowIndex} className="admin-seats-row">
+                                <div
+                                    key={rowIndex}
+                                    className="admin-seats-row"
+                                    style={{
+                                        gap: `${getGap()}px`,
+                                        justifyContent: 'center',
+                                    }}
+                                >
                                     {row.map((seat, placeIndex) => (
                                         <button
                                             key={placeIndex}
                                             className={`admin-seat ${seat}`}
+                                            style={{
+                                                width: `${seatSize}px`,
+                                                height: `${seatSize}px`,
+                                                flexShrink: 0,
+                                            }}
                                             onClick={() => onUpdateSeat(rowIndex, placeIndex)}
                                         />
                                     ))}

@@ -31,6 +31,7 @@ export default [
                 Image: 'readonly',
                 setTimeout: 'readonly',
                 clearTimeout: 'readonly',
+                ResizeObserver: 'readonly',
             },
         },
         rules: {

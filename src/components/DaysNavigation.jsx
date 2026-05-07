@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { getWeekDays, saveSelectedDate } from '../utils/dateHelpers';
+import {useState} from 'react';
+import {getWeekDays, saveSelectedDate} from '../utils/dateHelpers';
 
-function DaysNavigation({ currentDate, onDateChange }) {
+function DaysNavigation({currentDate, onDateChange}) {
     const [startDate, setStartDate] = useState(() => {
         const today = new Date();
         today.setHours(0, 0, 0, 0);

@@ -78,7 +78,7 @@
 
 /* НАВИГАЦИЯ ДНИ */
 .nav-days {
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 }
 
 .days-list {
@@ -103,6 +103,7 @@
     flex: 1;
     min-width: 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+    margin: 0;
 }
 
 .day-btn:first-child {
@@ -117,6 +118,7 @@
 
 .day-btn:not(.active) {
     height: 48px;
+    padding: 12px 8px;
 }
 
 .day-btn:not(.active) .day-week,
@@ -132,7 +134,11 @@
     flex: 2;
     height: 52px;
     background: rgba(255, 255, 255, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    padding: 14px 8px;
+    margin: -2px 0;
+    position: relative;
+    z-index: 2;
 }
 
 .day-btn.active .day-week,

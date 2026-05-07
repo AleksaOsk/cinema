@@ -1,4 +1,4 @@
-function HallsManager({ halls, onDeleteHall, onCreateHall }) {
+function HallsManager({halls, onDeleteHall, onCreateHall}) {
     return (
         <>
             <p className="admin-section-text">Доступные залы:</p>

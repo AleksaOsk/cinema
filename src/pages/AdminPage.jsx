@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import Header from '../components/Header';
-import { getAllData } from '../api/client';
+import {getAllData} from '../api/client';
 import AdminSection from '../components/admin/AdminSection';
 import HallsManager from '../components/admin/HallsManager';
 import HallConfigurator from '../components/admin/HallConfigurator';
@@ -12,11 +12,13 @@ import SalesManager from '../components/admin/SalesManager';
 import AddHallModal from '../components/admin/AddHallModal';
 import AddFilmModal from '../components/admin/AddFilmModal';
 import AddSeanceModal from '../components/admin/AddSeanceModal';
+import DeleteConfirmModal from "../components/admin/DeleteConfirmModal";
+import InfoModal from '../components/admin/InfoModal';
 
 function AdminPage() {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);
-    const [data, setData] = useState({ halls: [], films: [], seances: [] });
+    const [data, setData] = useState({halls: [], films: [], seances: []});
     const [loading, setLoading] = useState(true);
     const [seances, setSeances] = useState([]);
 
@@ -39,11 +41,11 @@ function AdminPage() {
     // Prices
     const [selectedPriceHallId, setSelectedPriceHallId] = useState(null);
     const [selectedPriceHall, setSelectedPriceHall] = useState(null);
-    const [prices, setPrices] = useState({ standart: 0, vip: 0 });
+    const [prices, setPrices] = useState({standart: 0, vip: 0});
 
     // Films & Seances
     const [showAddFilmModal, setShowAddFilmModal] = useState(false);
-    const [newFilm, setNewFilm] = useState({ name: '', duration: '', description: '', origin: '' });
+    const [newFilm, setNewFilm] = useState({name: '', duration: '', description: '', origin: ''});
     const [posterFile, setPosterFile] = useState(null);
     const [draggedFilm, setDraggedFilm] = useState(null);
     const [draggedSeance, setDraggedSeance] = useState(null);
@@ -57,7 +59,76 @@ function AdminPage() {
     // Add Seance
     const [showAddSeanceModal, setShowAddSeanceModal] = useState(false);
     const [selectedHallForSeance, setSelectedHallForSeance] = useState(null);
-    const [newSeance, setNewSeance] = useState({ hallId: '', filmId: '', time: '00:00' });
+    const [newSeance, setNewSeance] = useState({hallId: '', filmId: '', time: '00:00'});
+
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [seanceToDelete, setSeanceToDelete] = useState(null);
+    const [showSalesModal, setShowSalesModal] = useState(false);
+    const [salesMessage, setSalesMessage] = useState('');
+
+    const [showHallDeleteConfirm, setShowHallDeleteConfirm] = useState(false);
+    const [hallToDelete, setHallToDelete] = useState(null);
+    const [showFilmDeleteConfirm, setShowFilmDeleteConfirm] = useState(false);
+    const [filmToDelete, setFilmToDelete] = useState(null);
+
+    const handleHallDeleteClick = (hallId) => {
+        setHallToDelete(hallId);
+        setShowHallDeleteConfirm(true);
+    };
+
+    const handleConfirmHallDelete = async () => {
+        if (!hallToDelete) return;
+        try {
+            const response = await fetch(`https://shfe-diplom.neto-server.ru/hall/${hallToDelete}`, {method: 'DELETE'});
+            const result = await response.json();
+            if (result.success) {
+                loadData();
+                if (selectedHallId === hallToDelete) {
+                    setSelectedHallId(null);
+                    setSelectedHall(null);
+                }
+                showAlert('Зал успешно удалён');
+            } else {
+                showAlert('Ошибка удаления зала');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+            showAlert('Ошибка при удалении зала');
+        }
+        setShowHallDeleteConfirm(false);
+        setHallToDelete(null);
+    };
+
+    const handleFilmDeleteClick = (filmId) => {
+        setFilmToDelete(filmId);
+        setShowFilmDeleteConfirm(true);
+    };
+
+    const handleConfirmFilmDelete = async () => {
+        if (!filmToDelete) return;
+        try {
+            const response = await fetch(`https://shfe-diplom.neto-server.ru/film/${filmToDelete}`, {method: 'DELETE'});
+            const result = await response.json();
+            if (result.success) {
+                loadData();
+                showAlert('Фильм успешно удалён');
+            } else {
+                showAlert('Ошибка удаления фильма');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+            showAlert('Ошибка при удалении фильма');
+        }
+        setShowFilmDeleteConfirm(false);
+        setFilmToDelete(null);
+    };
+
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showAlertModal, setShowAlertModal] = useState(false);
+    const showAlert = (message) => {
+        setAlertMessage(message);
+        setShowAlertModal(true);
+    };
 
     useEffect(() => {
         const adminStatus = localStorage.getItem('isAdmin');
@@ -82,7 +153,7 @@ function AdminPage() {
     };
 
     const toggleSection = (section) => {
-        setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
+        setOpenSections(prev => ({...prev, [section]: !prev[section]}));
     };
 
     const showHeaderLineUp = (section) => {
@@ -101,31 +172,31 @@ function AdminPage() {
     // Halls handlers
     const handleCreateHall = async () => {
         if (!newHallName.trim()) {
-            alert('Введите название зала');
+            showAlert('Введите название зала');
             return;
         }
         try {
             const formData = new FormData();
             formData.append('hallName', newHallName);
-            const response = await fetch('https://shfe-diplom.neto-server.ru/hall', { method: 'POST', body: formData });
+            const response = await fetch('https://shfe-diplom.neto-server.ru/hall', {method: 'POST', body: formData});
             const result = await response.json();
             if (result.success) {
                 setShowAddHallModal(false);
                 setNewHallName('');
                 loadData();
             } else {
-                alert('Ошибка создания зала');
+                showAlert('Ошибка создания зала');
             }
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Ошибка при создании зала');
+            showAlert('Ошибка при создании зала');
         }
     };
 
     const handleDeleteHall = async (hallId) => {
         if (!confirm('Вы уверены, что хотите удалить этот зал?')) return;
         try {
-            const response = await fetch(`https://shfe-diplom.neto-server.ru/hall/${hallId}`, { method: 'DELETE' });
+            const response = await fetch(`https://shfe-diplom.neto-server.ru/hall/${hallId}`, {method: 'DELETE'});
             const result = await response.json();
             if (result.success) {
                 loadData();
@@ -134,11 +205,11 @@ function AdminPage() {
                     setSelectedHall(null);
                 }
             } else {
-                alert('Ошибка удаления зала');
+                showAlert('Ошибка удаления зала');
             }
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Ошибка при удалении зала');
+            showAlert('Ошибка при удалении зала');
         }
     };
 
@@ -155,6 +226,24 @@ function AdminPage() {
         setHallConfig(config);
     };
 
+    const handleRowsChange = (value) => {
+        let numValue = parseInt(value, 10);
+        if (isNaN(numValue) || numValue < 1) {
+            numValue = 1;
+        }
+        numValue = Math.min(numValue, 20);
+        setRows(numValue);
+    };
+
+    const handlePlacesChange = (value) => {
+        let numValue = parseInt(value, 10);
+        if (isNaN(numValue) || numValue < 1) {
+            numValue = 1;
+        }
+        numValue = Math.min(numValue, 80);
+        setPlaces(numValue);
+    };
+
     useEffect(() => {
         if (selectedHall) {
             const newConfig = Array(rows).fill().map(() => Array(places).fill('standart'));
@@ -166,6 +255,13 @@ function AdminPage() {
             setHallConfig(newConfig);
         }
     }, [rows, places]);
+
+    useEffect(() => {
+        if (data.halls.length > 0 && !selectedHallId) {
+            const firstHall = data.halls[0];
+            selectHallForConfig(firstHall);
+        }
+    }, [data.halls, selectedHallId]);
 
     const updateSeatType = (row, place) => {
         const newConfig = [...hallConfig];
@@ -183,17 +279,20 @@ function AdminPage() {
             formData.append('rowCount', rows);
             formData.append('placeCount', places);
             formData.append('config', JSON.stringify(hallConfig));
-            const response = await fetch(`https://shfe-diplom.neto-server.ru/hall/${selectedHall.id}`, { method: 'POST', body: formData });
+            const response = await fetch(`https://shfe-diplom.neto-server.ru/hall/${selectedHall.id}`, {
+                method: 'POST',
+                body: formData
+            });
             const result = await response.json();
             if (result.success) {
-                alert('Конфигурация сохранена');
+                showAlert('Конфигурация сохранена');
                 loadData();
             } else {
-                alert('Ошибка сохранения');
+                showAlert('Ошибка сохранения');
             }
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Ошибка при сохранении');
+            showAlert('Ошибка при сохранении');
         }
     };
 
@@ -201,8 +300,15 @@ function AdminPage() {
     const selectHallForPrices = (hall) => {
         setSelectedPriceHallId(hall.id);
         setSelectedPriceHall(hall);
-        setPrices({ standart: hall.hall_price_standart, vip: hall.hall_price_vip });
+        setPrices({standart: hall.hall_price_standart, vip: hall.hall_price_vip});
     };
+
+    useEffect(() => {
+        if (data.halls.length > 0 && !selectedHallId) {
+            const firstHall = data.halls[0];
+            selectHallForPrices(firstHall);
+        }
+    }, [data.halls, selectedHallId]);
 
     const savePrices = async () => {
         if (!selectedPriceHall) return;
@@ -210,28 +316,31 @@ function AdminPage() {
             const formData = new FormData();
             formData.append('priceStandart', prices.standart);
             formData.append('priceVip', prices.vip);
-            const response = await fetch(`https://shfe-diplom.neto-server.ru/price/${selectedPriceHall.id}`, { method: 'POST', body: formData });
+            const response = await fetch(`https://shfe-diplom.neto-server.ru/price/${selectedPriceHall.id}`, {
+                method: 'POST',
+                body: formData
+            });
             const result = await response.json();
             if (result.success) {
-                alert('Цены сохранены');
+                showAlert('Цены сохранены');
                 loadData();
             } else {
-                alert('Ошибка сохранения цен');
+                showAlert('Ошибка сохранения цен');
             }
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Ошибка при сохранении цен');
+            showAlert('Ошибка при сохранении цен');
         }
     };
 
     // Film handlers
     const handleAddFilm = async () => {
         if (!newFilm.name.trim()) {
-            alert('Введите название фильма');
+            showAlert('Введите название фильма');
             return;
         }
         if (!newFilm.duration) {
-            alert('Введите продолжительность фильма');
+            showAlert('Введите продолжительность фильма');
             return;
         }
         try {
@@ -241,32 +350,32 @@ function AdminPage() {
             formData.append('filmDescription', newFilm.description);
             formData.append('filmOrigin', newFilm.origin);
             if (posterFile) formData.append('filePoster', posterFile);
-            const response = await fetch('https://shfe-diplom.neto-server.ru/film', { method: 'POST', body: formData });
+            const response = await fetch('https://shfe-diplom.neto-server.ru/film', {method: 'POST', body: formData});
             const result = await response.json();
             if (result.success) {
                 setShowAddFilmModal(false);
-                setNewFilm({ name: '', duration: '', description: '', origin: '' });
+                setNewFilm({name: '', duration: '', description: '', origin: ''});
                 setPosterFile(null);
                 loadData();
             } else {
-                alert('Ошибка добавления фильма');
+                showAlert('Ошибка добавления фильма');
             }
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Ошибка при добавлении фильма');
+            showAlert('Ошибка при добавлении фильма');
         }
     };
 
     const handleDeleteFilm = async (filmId) => {
         if (!confirm('Вы уверены, что хотите удалить этот фильм?')) return;
         try {
-            const response = await fetch(`https://shfe-diplom.neto-server.ru/film/${filmId}`, { method: 'DELETE' });
+            const response = await fetch(`https://shfe-diplom.neto-server.ru/film/${filmId}`, {method: 'DELETE'});
             const result = await response.json();
             if (result.success) loadData();
-            else alert('Ошибка удаления фильма');
+            else showAlert('Ошибка удаления фильма');
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Ошибка при удалении фильма');
+            showAlert('Ошибка при удалении фильма');
         }
     };
 
@@ -278,7 +387,7 @@ function AdminPage() {
         const startMinutes = hours * 60 + minutes;
         const left = (startMinutes / (24 * 60)) * 100;
         const width = (duration / (24 * 60)) * 100;
-        return { left, width };
+        return {left, width};
     };
 
     const handleAddSeance = async (hallId, filmId, time) => {
@@ -289,19 +398,25 @@ function AdminPage() {
             formData.append('seanceHallid', hallId);
             formData.append('seanceFilmid', filmId);
             formData.append('seanceTime', time);
-            const response = await fetch('https://shfe-diplom.neto-server.ru/seance', { method: 'POST', body: formData });
+            const response = await fetch('https://shfe-diplom.neto-server.ru/seance', {method: 'POST', body: formData});
             const result = await response.json();
             if (result.success) loadData();
-            else alert('Ошибка добавления сеанса');
+            else showAlert('Ошибка добавления сеанса');
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Ошибка при добавлении сеанса');
+            showAlert('Ошибка при добавлении сеанса');
         }
     };
 
     const handleDrop = (hallId, time) => {
         if (draggedFilm) {
-            handleAddSeance(hallId, draggedFilm.id, time);
+            setSelectedHallForSeance({id: hallId});
+            setNewSeance({
+                hallId: hallId,
+                filmId: draggedFilm.id,
+                time: time
+            });
+            setShowAddSeanceModal(true);
             setDraggedFilm(null);
         }
     };
@@ -311,31 +426,37 @@ function AdminPage() {
         const film = getFilmById(draggedSeance.seance_filmid);
         if (!film) return;
         try {
-            await fetch(`https://shfe-diplom.neto-server.ru/seance/${draggedSeance.id}`, { method: 'DELETE' });
+            await fetch(`https://shfe-diplom.neto-server.ru/seance/${draggedSeance.id}`, {method: 'DELETE'});
             const formData = new FormData();
             formData.append('seanceHallid', hallId);
             formData.append('seanceFilmid', draggedSeance.seance_filmid);
             formData.append('seanceTime', newTime);
-            await fetch('https://shfe-diplom.neto-server.ru/seance', { method: 'POST', body: formData });
+            await fetch('https://shfe-diplom.neto-server.ru/seance', {method: 'POST', body: formData});
             loadData();
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Ошибка при перемещении сеанса');
+            showAlert('Ошибка при перемещении сеанса');
         }
         setDraggedSeance(null);
         setShowTrash(false);
     };
 
-    const handleTrashDrop = async () => {
-        if (!draggedSeance) return;
-        if (confirm('Удалить сеанс?')) {
-            try {
-                await fetch(`https://shfe-diplom.neto-server.ru/seance/${draggedSeance.id}`, { method: 'DELETE' });
-                loadData();
-            } catch (error) {
-                console.error('Ошибка:', error);
-                alert('Ошибка при удалении сеанса');
-            }
+    const handleTrashClick = (seance) => {
+        setSeanceToDelete(seance);
+        setShowDeleteConfirm(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!seanceToDelete) return;
+        try {
+            await fetch(`https://shfe-diplom.neto-server.ru/seance/${seanceToDelete.id}`, {method: 'DELETE'});
+            loadData();
+            setShowDeleteConfirm(false);
+            setSeanceToDelete(null);
+        } catch (error) {
+            console.error('Ошибка:', error);
+            setSalesMessage('Ошибка при удалении сеанса');
+            setShowSalesModal(true);
         }
         setDraggedSeance(null);
         setShowTrash(false);
@@ -356,32 +477,53 @@ function AdminPage() {
         setSelectedSalesHall(hall);
     };
 
+    useEffect(() => {
+        if (data.halls.length > 0 && !selectedHallId) {
+            const firstHall = data.halls[0];
+            selectHallForSales(firstHall);
+        }
+    }, [data.halls, selectedHallId]);
+
     const toggleHallSales = async () => {
         if (!selectedSalesHall) return;
         const newStatus = selectedSalesHall.hall_open === 1 ? 0 : 1;
         try {
             const formData = new FormData();
             formData.append('hallOpen', newStatus);
-            const response = await fetch(`https://shfe-diplom.neto-server.ru/open/${selectedSalesHall.id}`, { method: 'POST', body: formData });
+            const response = await fetch(`https://shfe-diplom.neto-server.ru/open/${selectedSalesHall.id}`, {
+                method: 'POST',
+                body: formData
+            });
             const result = await response.json();
             if (result.success) {
-                alert(newStatus === 1 ? 'Продажи открыты' : 'Продажи закрыты');
-                loadData();
-                const updatedHall = data.halls.find(h => h.id === selectedSalesHall.id);
-                setSelectedSalesHall(updatedHall);
+                setSelectedSalesHall(prev => ({...prev, hall_open: newStatus}));
+
+                setData(prevData => ({
+                    ...prevData,
+                    halls: prevData.halls.map(hall =>
+                        hall.id === selectedSalesHall.id
+                            ? {...hall, hall_open: newStatus}
+                            : hall
+                    )
+                }));
+
+                setSalesMessage(newStatus === 1 ? 'Продажи успешно открыты' : 'Продажи успешно закрыты');
+                setShowSalesModal(true);
             } else {
-                alert('Ошибка изменения статуса продаж');
+                setSalesMessage('Ошибка изменения статуса продаж');
+                setShowSalesModal(true);
             }
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Ошибка при изменении статуса продаж');
+            setSalesMessage('Ошибка при изменении статуса продаж');
+            setShowSalesModal(true);
         }
     };
 
     if (!isAdmin || loading) {
         return (
             <div className="admin-container-page admin-layout">
-                <Header showAdminSubtitle={true} />
+                <Header showAdminSubtitle={true}/>
                 <main className="main">
                     <div className="loading">Загрузка...</div>
                 </main>
@@ -391,7 +533,7 @@ function AdminPage() {
 
     return (
         <div className="admin-container-page admin-layout">
-            <Header showAdminSubtitle={true} />
+            <Header showAdminSubtitle={true}/>
             <main className="admin-main">
                 <div className="admin-content">
                     <AdminSection
@@ -404,7 +546,7 @@ function AdminPage() {
                     >
                         <HallsManager
                             halls={data.halls}
-                            onDeleteHall={handleDeleteHall}
+                            onDeleteHall={handleHallDeleteClick}
                             onCreateHall={() => setShowAddHallModal(true)}
                         />
                     </AdminSection>
@@ -423,9 +565,9 @@ function AdminPage() {
                             onSelectHall={selectHallForConfig}
                             selectedHall={selectedHall}
                             rows={rows}
-                            onRowsChange={setRows}
+                            onRowsChange={handleRowsChange}
                             places={places}
-                            onPlacesChange={setPlaces}
+                            onPlacesChange={handlePlacesChange}
                             hallConfig={hallConfig}
                             onUpdateSeat={updateSeatType}
                             onSave={saveHallConfig}
@@ -446,7 +588,12 @@ function AdminPage() {
                             selectedHallId={selectedPriceHallId}
                             onSelectHall={selectHallForPrices}
                             prices={prices}
-                            onPriceChange={(type, value) => setPrices(prev => ({ ...prev, [type]: value }))}
+                            onPriceChange={(type, value) => {
+                                let numValue = Number(value);
+                                if (isNaN(numValue)) numValue = 0;
+                                if (numValue <= 0) numValue = 1;
+                                setPrices(prev => ({...prev, [type]: numValue}));
+                            }}
                             onSave={savePrices}
                             onCancel={() => selectHallForPrices(selectedPriceHall)}
                         />
@@ -463,7 +610,7 @@ function AdminPage() {
                         <FilmsManager
                             films={data.films}
                             onDragStart={(film) => setDraggedFilm(film)}
-                            onDeleteFilm={handleDeleteFilm}
+                            onDeleteFilm={handleFilmDeleteClick}
                             onAddFilm={() => setShowAddFilmModal(true)}
                         />
                         <SeancesTimeline
@@ -484,10 +631,10 @@ function AdminPage() {
                             onDragEnd={handleDragEnd}
                             onDrop={handleDrop}
                             onSeanceDrop={handleSeanceDrop}
-                            onTrashDrop={handleTrashDrop}
+                            onTrashClick={handleTrashClick}
                             onTimeClick={(hall) => {
                                 setSelectedHallForSeance(hall);
-                                setNewSeance({ hallId: hall.id, filmId: '', time: '00:00' });
+                                setNewSeance({hallId: hall.id, filmId: '', time: '00:00'});
                                 setShowAddSeanceModal(true);
                             }}
                             getSeancesForHall={getSeancesForHall}
@@ -520,6 +667,56 @@ function AdminPage() {
                 </div>
             </main>
 
+            {/* Модалка для обычных сообщений */}
+            {showAlertModal && (
+                <InfoModal
+                    message={alertMessage}
+                    onClose={() => setShowAlertModal(false)}
+                />
+            )}
+
+            {/* Модалка подтверждения удаления зала */}
+            {showHallDeleteConfirm && (
+                <DeleteConfirmModal
+                    onConfirm={handleConfirmHallDelete}
+                    onClose={() => {
+                        setShowHallDeleteConfirm(false);
+                        setHallToDelete(null);
+                    }}
+                    itemName="зал"
+                />
+            )}
+
+            {/* Модалка подтверждения удаления фильма */}
+            {showFilmDeleteConfirm && (
+                <DeleteConfirmModal
+                    onConfirm={handleConfirmFilmDelete}
+                    onClose={() => {
+                        setShowFilmDeleteConfirm(false);
+                        setFilmToDelete(null);
+                    }}
+                    itemName="фильм"
+                />
+            )}
+
+            {showDeleteConfirm && (
+                <DeleteConfirmModal
+                    onConfirm={handleConfirmDelete}
+                    onClose={() => {
+                        setShowDeleteConfirm(false);
+                        setSeanceToDelete(null);
+                    }}
+                    itemName="сеанс"
+                />
+            )}
+
+            {showSalesModal && (
+                <InfoModal
+                    message={salesMessage}
+                    onClose={() => setShowSalesModal(false)}
+                />
+            )}
+
             {showAddHallModal && (
                 <AddHallModal
                     hallName={newHallName}
@@ -532,7 +729,7 @@ function AdminPage() {
             {showAddFilmModal && (
                 <AddFilmModal
                     film={newFilm}
-                    onFilmChange={(field, value) => setNewFilm(prev => ({ ...prev, [field]: value }))}
+                    onFilmChange={(field, value) => setNewFilm(prev => ({...prev, [field]: value}))}
                     posterFile={posterFile}
                     onPosterSelect={(e) => e.target.files[0] && setPosterFile(e.target.files[0])}
                     onPosterDelete={() => setPosterFile(null)}
@@ -546,16 +743,30 @@ function AdminPage() {
                     seance={newSeance}
                     halls={data.halls}
                     films={data.films}
-                    onSeanceChange={(field, value) => setNewSeance(prev => ({ ...prev, [field]: value }))}
+                    onSeanceChange={(field, value) => setNewSeance(prev => ({...prev, [field]: value}))}
                     onAdd={() => {
                         if (!newSeance.filmId) {
-                            alert('Выберите фильм');
+                            showAlert('Выберите фильм');
+                            return;
+                        }
+                        if (!newSeance.hallId) {
+                            showAlert('Выберите зал');
+                            return;
+                        }
+                        if (!newSeance.time) {
+                            showAlert('Выберите время');
                             return;
                         }
                         handleAddSeance(newSeance.hallId, newSeance.filmId, newSeance.time);
                         setShowAddSeanceModal(false);
+                        setNewSeance({hallId: '', filmId: '', time: '00:00'});
+                        setSelectedHallForSeance(null);
                     }}
-                    onClose={() => setShowAddSeanceModal(false)}
+                    onClose={() => {
+                        setShowAddSeanceModal(false);
+                        setNewSeance({hallId: '', filmId: '', time: '00:00'});
+                        setSelectedHallForSeance(null);
+                    }}
                 />
             )}
         </div>

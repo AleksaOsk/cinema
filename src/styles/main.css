@@ -44,7 +44,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
-    background-attachment: fixed;
 }
 
 .booking-container-page {
@@ -53,7 +52,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
-    background-attachment: fixed;
 }
 
 .ticket-container-page {
@@ -62,7 +60,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
-    background-attachment: fixed;
 }
 
 .admin-login-container-page {
@@ -71,7 +68,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
-    background-attachment: fixed;
 }
 
 .admin-container-page {
@@ -80,7 +76,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
-    background-attachment: fixed;
 }
 
 .admin-login-container-page::before {

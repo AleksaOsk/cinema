@@ -88,8 +88,6 @@ function BookingPage() {
             return {row: parseInt(row), place: parseInt(place), coast: price};
         });
 
-        console.log('Отправляем билеты:', tickets);
-
         const formData = new FormData();
         formData.append('seanceId', seanceId);
         formData.append('ticketDate', date);
@@ -166,7 +164,7 @@ function BookingPage() {
                             <div className="booking-hall-name">{hall.hall_name}</div>
                         </div>
                         <div className="booking-tap-hint">
-                            <img src="./images/tap.svg" alt="Тап" />
+                            <img src="./images/tap.svg" alt="Тап"/>
                             <span>Тапните дважды, чтобы увеличить</span>
                         </div>
                     </div>

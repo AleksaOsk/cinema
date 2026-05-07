@@ -3,6 +3,11 @@
     padding: 35px 42px 35px 104px;
 }
 
+.admin-login-container-page .header {
+    max-width: 972px;
+    margin: auto;
+}
+
 .admin-login-container {
     max-width: 480px;
     width: 100%;

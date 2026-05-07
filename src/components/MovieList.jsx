@@ -27,6 +27,16 @@ function MovieList({films, seances, halls, currentDate}) {
             });
         });
 
+        Object.values(sessionsByHall).forEach(hall => {
+            hall.sessions.sort((a, b) => {
+                const toMinutes = (timeStr) => {
+                    const [hours, minutes] = timeStr.split(':').map(Number);
+                    return hours * 60 + minutes;
+                };
+                return toMinutes(a.time) - toMinutes(b.time);
+            });
+        });
+
         return Object.values(sessionsByHall).sort((a, b) => a.hallId - b.hallId);
     };
 

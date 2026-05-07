@@ -1,4 +1,4 @@
-function AddSeanceModal({ seance, halls, films, onSeanceChange, onAdd, onClose }) {
+function AddSeanceModal({seance, halls, films, onSeanceChange, onAdd, onClose}) {
     return (
         <div className="admin-modal-overlay">
             <div className="admin-modal admin-modal-seance">

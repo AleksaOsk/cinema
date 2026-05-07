@@ -7,12 +7,15 @@ export function getWeekDays(startDateParam = null) {
         currentDate = new Date(startDateParam);
     } else {
         currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0);
     }
+
+    currentDate.setHours(0, 0, 0, 0);
 
     for (let i = 0; i < 7; i++) {
         const date = new Date(currentDate);
         date.setDate(currentDate.getDate() + i);
+
+        date.setHours(0, 0, 0, 0);
 
         const dayOfWeek = weekdays[date.getDay()];
         const dayOfMonth = date.getDate();
@@ -21,8 +24,13 @@ export function getWeekDays(startDateParam = null) {
         today.setHours(0, 0, 0, 0);
         const isToday = date.getTime() === today.getTime();
 
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(dayOfMonth).padStart(2, '0');
+        const dateStr = `${year}-${month}-${day}`;
+
         days.push({
-            date: date.toISOString().split('T')[0],
+            date: dateStr,
             firstLine: isToday ? 'Сегодня' : `${dayOfWeek},`,
             secondLine: isToday ? `${dayOfWeek}, ${dayOfMonth}` : `${dayOfMonth}`,
             dayOfWeek: dayOfWeek,
@@ -48,6 +56,8 @@ export function saveSelectedDate(date) {
 
 export function isSessionPassed(sessionTime, sessionDate) {
     const now = new Date();
-    const sessionDateTime = new Date(`${sessionDate}T${sessionTime}`);
+    const [hours, minutes] = sessionTime.split(':').map(Number);
+    const [year, month, day] = sessionDate.split('-').map(Number);
+    const sessionDateTime = new Date(year, month - 1, day, hours, minutes, 0, 0);
     return sessionDateTime < now;
 }

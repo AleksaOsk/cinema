@@ -19,6 +19,8 @@
 .admin-container-page .header {
     position: relative;
     z-index: 2;
+    margin: auto;
+    max-width: 972px;
 }
 
 .admin-content {

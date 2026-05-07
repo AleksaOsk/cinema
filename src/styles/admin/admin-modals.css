@@ -18,10 +18,6 @@
     overflow: hidden;
 }
 
-.admin-modal-film {
-    max-width: 600px;
-}
-
 .admin-modal-header {
     background: #63536C;
     padding: 16px 40px;

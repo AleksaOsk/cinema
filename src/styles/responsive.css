@@ -51,7 +51,7 @@
 
     .booking-container-page header,
     .ticket-container-page header,
-    .home-container-page header{
+    .home-container-page header {
         padding: 14px;
     }
 
@@ -156,5 +156,14 @@
         display: block;
         margin: 0 auto;
         text-align: center;
+    }
+
+    .admin-timeline-wrapper > div:first-child {
+        width: auto;
+        flex-shrink: 1;
+    }
+
+    .admin-timeline-title {
+        padding: 0;
     }
 }

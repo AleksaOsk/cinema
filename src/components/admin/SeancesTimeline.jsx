@@ -12,7 +12,7 @@ function SeancesTimeline({
                              onDragEnd,
                              onDrop,
                              onSeanceDrop,
-                             onTrashDrop,
+                             onTrashClick,
                              onTimeClick,
                              getSeancesForHall,
                              getFilmById,
@@ -26,14 +26,16 @@ function SeancesTimeline({
                     <div key={hall.id} className="admin-timeline-hall">
                         <div className="admin-timeline-title">{hall.hall_name}</div>
                         <div className="admin-timeline-wrapper">
-                            <div style={{width: '35px', flexShrink: 0}}>
+                            <div>
                                 {showTrash && dragSourceHallId === hall.id && (
                                     <div
                                         className="admin-timeline-trash"
                                         onDragOver={onDragOver}
                                         onDrop={(e) => {
                                             e.preventDefault();
-                                            onTrashDrop();
+                                            if (draggedSeance) {
+                                                onTrashClick(draggedSeance);
+                                            }
                                         }}
                                     >
                                         <img src="./images/trash.svg" alt="Удалить"/>
@@ -75,7 +77,10 @@ function SeancesTimeline({
                                         {hallSeances.map(seance => {
                                             const film = getFilmById(seance.seance_filmid);
                                             if (!film) return null;
-                                            const {left, width} = getSeancePosition(seance.seance_time, film.film_duration);
+                                            const {
+                                                left,
+                                                width
+                                            } = getSeancePosition(seance.seance_time, film.film_duration);
                                             const filmIndex = films.findIndex(f => f.id === film.id);
                                             return (
                                                 <div
@@ -107,9 +112,11 @@ function SeancesTimeline({
                                             const startMinutes = h * 60 + m;
                                             const left = (startMinutes / (24 * 60)) * 100;
                                             return (
-                                                <div key={seance.id} className="admin-timeline-marker" style={{left: `${left}%`}}>
+                                                <div key={seance.id} className="admin-timeline-marker"
+                                                     style={{left: `${left}%`}}>
                                                     <div className="admin-timeline-marker-line"></div>
-                                                    <div className="admin-timeline-marker-time">{seance.seance_time}</div>
+                                                    <div
+                                                        className="admin-timeline-marker-time">{seance.seance_time}</div>
                                                 </div>
                                             );
                                         })}

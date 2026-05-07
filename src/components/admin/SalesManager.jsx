@@ -1,4 +1,4 @@
-function SalesManager({ halls, selectedHallId, onSelectHall, selectedHall, onToggleSales }) {
+function SalesManager({halls, selectedHallId, onSelectHall, selectedHall, onToggleSales}) {
     return (
         <>
             <p className="admin-section-text">Выберите зал для открытия/закрытия продаж:</p>

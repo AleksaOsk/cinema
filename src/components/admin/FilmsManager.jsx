@@ -1,4 +1,4 @@
-function FilmsManager({ films, onDragStart, onDeleteFilm, onAddFilm }) {
+function FilmsManager({films, onDragStart, onDeleteFilm, onAddFilm}) {
     return (
         <>
             <button className="admin-create-btn" onClick={onAddFilm}>

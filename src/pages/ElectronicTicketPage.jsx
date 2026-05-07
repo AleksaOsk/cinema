@@ -6,23 +6,25 @@ import QRCode from '../components/QRCode';
 function ElectronicTicketPage() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [ticket, setTicket] = useState(null);
+    const [tickets, setTickets] = useState([]);
     const [qrValue, setQrValue] = useState('');
 
     useEffect(() => {
         if (location.state && location.state.tickets && location.state.tickets.length > 0) {
-            const firstTicket = location.state.tickets[0];
-            setTicket(firstTicket);
+            setTickets(location.state.tickets);
+
+            const allSeats = location.state.tickets.map(t => `${t.ticket_row}, ${t.ticket_place}`).join('; ');
+            const totalPrice = location.state.tickets.reduce((sum, t) => sum + t.ticket_price, 0);
 
             const qrData = {
-                билет: firstTicket.id,
-                фильм: firstTicket.ticket_filmname,
-                ряд: firstTicket.ticket_row,
-                место: firstTicket.ticket_place,
-                зал: firstTicket.ticket_hallname,
-                дата: firstTicket.ticket_date,
-                время: firstTicket.ticket_time,
-                цена: firstTicket.ticket_price
+                заказ: location.state.tickets.map(t => t.id).join(','),
+                фильм: location.state.tickets[0].ticket_filmname,
+                места: allSeats,
+                зал: location.state.tickets[0].ticket_hallname,
+                дата: location.state.tickets[0].ticket_date,
+                время: location.state.tickets[0].ticket_time,
+                цена: totalPrice,
+                количество: location.state.tickets.length
             };
             setQrValue(JSON.stringify(qrData));
         } else {
@@ -30,7 +32,7 @@ function ElectronicTicketPage() {
         }
     }, [location.state, navigate]);
 
-    if (!ticket) {
+    if (tickets.length === 0) {
         return (
             <div className="ticket-container-page">
                 <Header/>
@@ -44,8 +46,11 @@ function ElectronicTicketPage() {
     }
 
     const getSeatsString = () => {
-        return `${ticket.ticket_row}, ${ticket.ticket_place}`;
+        return tickets.map(t => `${t.ticket_row}, ${t.ticket_place}`).join('; ');
     };
+
+    const totalPrice = tickets.reduce((sum, t) => sum + t.ticket_price, 0);
+    const firstTicket = tickets[0];
 
     return (
         <div className="ticket-container-page">
@@ -61,7 +66,7 @@ function ElectronicTicketPage() {
                     <div className="ticket-body">
                         <div className="ticket-info-row">
                             <span className="ticket-label">На фильм: </span>
-                            <span className="ticket-value">{ticket.ticket_filmname}</span>
+                            <span className="ticket-value">{firstTicket.ticket_filmname}</span>
                         </div>
                         <div className="ticket-info-row">
                             <span className="ticket-label">Места: </span>
@@ -69,11 +74,16 @@ function ElectronicTicketPage() {
                         </div>
                         <div className="ticket-info-row">
                             <span className="ticket-label">В зале: </span>
-                            <span className="ticket-value">{ticket.ticket_hallname}</span>
+                            <span className="ticket-value">{firstTicket.ticket_hallname}</span>
                         </div>
                         <div className="ticket-info-row">
                             <span className="ticket-label">Начало сеанса: </span>
-                            <span className="ticket-value">{ticket.ticket_time}</span>
+                            <span className="ticket-value">{firstTicket.ticket_time}</span>
+                        </div>
+                        <div className="ticket-info-row">
+                            <span className="ticket-label">Стоимость: </span>
+                            <span className="ticket-value">{totalPrice}</span>
+                            <span className="ticket-label"> рублей</span>
                         </div>
 
                         <div className="ticket-qr">
@@ -81,7 +91,9 @@ function ElectronicTicketPage() {
                         </div>
 
                         <div className="ticket-message">
-                            Покажите QR-код нашему контроллеру для подтверждения бронирования.<br/>
+                            Покажите QR-код нашему контроллеру для подтверждения бронирования.
+                        </div>
+                        <div className="ticket-message" style={{marginTop: '10px'}}>
                             Приятного просмотра!
                         </div>
                     </div>
